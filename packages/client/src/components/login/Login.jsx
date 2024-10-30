@@ -2,7 +2,7 @@ import {
     Button, 
     ButtonGroup, 
     Heading,
-    VStack  
+    VStack    
 } from "@chakra-ui/react"
 import { Form, Formik } from "formik";
 import * as Yup from "yup"
@@ -13,7 +13,7 @@ import { useNavigate } from "react-router";
 const Login = () => {
     const {colorMode, toggleColorMode} = useColorMode();
     const navigate = useNavigate();
-  return (
+    return (
     <Formik
         initialValues={{username: "", password: ""}}
         validationSchema={Yup.object({
@@ -27,8 +27,28 @@ const Login = () => {
                 .max(28, "Password too long!"),
         })}
         onSubmit={(values, actions) => {
-            alert(JSON.stringify(values, null, 2));
+            const vals = {...values}
             actions.resetForm()
+            // Make HTTP POST request to localhost:4000
+            fetch("https:/localhost:4000", {
+                method: "POST",
+                credentials: "include", // Cookes and HTTP auth headers sent with req
+                headers: {
+                    "Content-Type": "application/json", // Body contains JSON data
+                },
+                body: JSON.stringify(vals) // JS object -> JSON string
+            })
+            .catch(err => {
+                return;
+            })
+            .then(res => {
+                if (!res || !res.ok || res.status >= 400) return
+                return res.json() // JSON string -> JS object for next .then() call
+            })
+            .then(data => {
+                if (!data) return;
+                console.log(data)
+            })
         }}
     >
         <VStack 
