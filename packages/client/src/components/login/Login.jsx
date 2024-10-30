@@ -30,7 +30,7 @@ const Login = () => {
             const vals = {...values}
             actions.resetForm()
             // Make HTTP POST request to localhost:4000
-            fetch("https:/localhost:4000", {
+            fetch("http://localhost:4000/auth/login", {
                 method: "POST",
                 credentials: "include", // Cookes and HTTP auth headers sent with req
                 headers: {

@@ -31,11 +31,11 @@ const SignUp = () => {
             const vals = {...values}
             actions.resetForm()
             // Make HTTP POST request to localhost:4000
-            fetch("https:/localhost:4000", {
+            fetch("http://localhost:4000/auth/register", {
                 method: "POST",
-                credentials: "include", // Cookes and HTTP auth headers sent with req
+                credentials: "include", // Cookies and HTTP auth headers sent with req
                 headers: {
-                    "Content-Type": "application/json", // Body contains JSON data
+                    "Content-Type": "application/json", // Req body contains JSON data
                 },
                 body: JSON.stringify(vals) // JS object -> JSON string
             })
