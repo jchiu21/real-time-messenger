@@ -10,6 +10,7 @@ import { useColorMode } from "@chakra-ui/react";
 import TextField from "./TextField";
 import { useNavigate } from "react-router";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import React from "react";
 
 const SignUp = () => {
     const {colorMode, toggleColorMode} = useColorMode();

@@ -14,13 +14,13 @@
     "@chakra-ui/color-mode": "^2.0.0",
     "@chakra-ui/icons": "^2.0.0",
     "@chakra-ui/react": "^2.0.0",
+    "@chatapp/common": "file:../common",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "formik": "^2.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^6.27.0",
-    "react-router-dom": "^6.27.0",
-    "@/chatapp/common": "1.0.0"
+    "react-router-dom": "^6.27.0"
   }
 }

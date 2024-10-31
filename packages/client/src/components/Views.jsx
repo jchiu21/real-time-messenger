@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import SignUp from "./login/SignUp";
 import Login from "./login/Login";
+import React from "react";
 
 const Views = () => {
     return (
