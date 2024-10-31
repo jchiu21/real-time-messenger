@@ -1,9 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from 'express';
-import { Server } from 'socket.io';
+import { createServer } from 'http';
 import helmet from 'helmet';
 import cors from 'cors';
-import authRouter from './routers/authRouter.js';  // Note the .js extension
-import { createServer } from 'http';
+import { Server } from 'socket.io';
+import session from 'express-session';
+
+import authRouter from './routers/authRouter.js';
 
 const app = express();
 const server = createServer(app);
@@ -24,8 +29,22 @@ app.use(cors({
 }));  
 
 app.use(express.json());
+app.use(
+    session({
+        secret: process.env.COOKIE_SECRET,
+        credentials: true,
+        name: "sid", 
+        resave: false, // Don't resave unchanged sessions to storage
+        saveUninitialized: false, // Prevents new sessions from being saved if empty
+        cookie: {
+            secure: process.env.ENVIRONMENT === "production", // Only send cookie over HTTPS in production
+            httpOnly: true, // Cookie cannot be accessed via JS in client
+            sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax" // Allow cross-cross site requests in production
+        }
+    })
+);
 
-app.use("/auth", authRouter) // For /auth/login and /auth/register
+app.use("/auth", authRouter); // For /auth/login and /auth/register
 
 io.on("connect", (socket)=> {});
 

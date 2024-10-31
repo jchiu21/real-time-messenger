@@ -12,10 +12,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@chatapp/common": "file:../common",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.17.1",
+    "express-session": "^1.18.1",
     "helmet": "^4.6.0",
-    "socket.io": "^4.4.0",
-    "@chatapp/common": "file:../common"
+    "pg": "^8.13.1",
+    "socket.io": "^4.4.0"
   }
 }

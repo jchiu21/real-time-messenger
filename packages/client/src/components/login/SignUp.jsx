@@ -23,7 +23,7 @@ const SignUp = () => {
             const vals = {...values}
             actions.resetForm()
             // Make HTTP POST request to localhost:4000
-            fetch("http://localhost:4000/auth/register", {
+            fetch("http://localhost:4000/auth/signup", {
                 method: "POST",
                 credentials: "include", // Cookies and HTTP auth headers sent with req
                 headers: {
@@ -65,6 +65,7 @@ const SignUp = () => {
                 placeholder="Enter password"
                 autoComplete="off"
                 label="Password"
+                type="password"
             />
 
             <ButtonGroup pt="1rem">
