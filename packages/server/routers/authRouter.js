@@ -1,6 +1,6 @@
-const express = require("express");
+import express from 'express';
 const router = express.Router();
-const validateForm = require("../controllers/validateForm");
+import validateForm from '../controllers/validateForm.js';
 
 router.post("/login", (req, res) => {
     validateForm(req, res)
@@ -10,4 +10,4 @@ router.post("/signup", (req, res) => {
     validateForm(req, res)
 });
 
-module.exports = router;
+export default router;

@@ -1,11 +1,12 @@
-const express = require("express");
-const { Server } = require("socket.io");
-const helmet = require("helmet");
-const cors = require("cors");
-const authRouter = require("./routers/authRouter")
+import express from 'express';
+import { Server } from 'socket.io';
+import helmet from 'helmet';
+import cors from 'cors';
+import authRouter from './routers/authRouter.js';  // Note the .js extension
+import { createServer } from 'http';
 
 const app = express();
-const server = require("http").createServer(app);
+const server = createServer(app);
 
 // Attach socket.io server to http server to handle WebSocket connections
 const io = new Server(server, {

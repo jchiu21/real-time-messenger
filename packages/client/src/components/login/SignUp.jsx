@@ -2,10 +2,10 @@ import {
     Button, 
     ButtonGroup, 
     Heading,
-    VStack    
+    VStack
 } from "@chakra-ui/react"
 import { Form, Formik } from "formik";
-import * as Yup from "yup"
+import { formSchema } from "@chatapp/common";
 import { useColorMode } from "@chakra-ui/react";
 import TextField from "./TextField";
 import { useNavigate } from "react-router";
@@ -17,16 +17,7 @@ const SignUp = () => {
     return (
     <Formik
         initialValues={{username: "", password: ""}}
-        validationSchema={Yup.object({
-        username: Yup.string()
-                .required("Username required!")
-                .min(6, "Username too short!")
-                .max(28, "Username too long!"),
-        password: Yup.string()
-                .required("Password required!")
-                .min(6, "Password too short!")
-                .max(28, "Password too long!"),
-        })}
+        validationSchema={formSchema}
         onSubmit={(values, actions) => {
             const vals = {...values}
             actions.resetForm()
