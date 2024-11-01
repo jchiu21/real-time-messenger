@@ -39,7 +39,8 @@ app.use(
         cookie: {
             secure: process.env.ENVIRONMENT === "production", // Only send cookie over HTTPS in production
             httpOnly: true, // Cookie cannot be accessed via JS in client
-            sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax" // Allow cross-cross site requests in production
+            sameSite: process.env.ENVIRONMENT === "production" ? "none" : "lax", // Allow cross-cross site requests in production
+            expires: 1000 * 60 * 60 * 24 * 7
         }
     })
 );

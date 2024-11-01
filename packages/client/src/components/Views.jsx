@@ -1,16 +1,25 @@
 import { Routes, Route } from "react-router-dom"
 import SignUp from "./login/SignUp";
 import Login from "./login/Login";
-import React from "react";
+import React, { useContext } from "react";
+import { Text } from "@chakra-ui/react";
+import PrivateRoutes from "./privateRoutes";
+import { AccountContext } from "./AccountContext";
 
 const Views = () => {
-    return (
+    const { user } = useContext(AccountContext);
+    return user.loggedIn === null ? (
+        <Text>Loading...</Text>
+    ) : (
         <Routes>
-            <Route path="/" element={<Login/ >}/>
-            <Route path="/register" element={<SignUp />}/>
-            <Route path="*" element={<Login />}/>
+                <Route path="/" element={<Login/ >}/>
+                <Route path="/register" element={<SignUp />}/>
+                <Route element={<PrivateRoutes />}>
+                    <Route path="/home" element={<Text>Hi welcome home</Text>} />
+                </Route>
+                <Route path="*" element={<Login />}/>
         </Routes>
-    );
+    );   
 }
 
 export default Views

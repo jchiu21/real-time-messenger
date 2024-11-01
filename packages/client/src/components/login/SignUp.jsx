@@ -2,6 +2,7 @@ import {
     Button, 
     ButtonGroup, 
     Heading,
+    Text,
     VStack
 } from "@chakra-ui/react"
 import { Form, Formik } from "formik";
@@ -10,9 +11,12 @@ import { useColorMode } from "@chakra-ui/react";
 import TextField from "./TextField";
 import { useNavigate } from "react-router";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AccountContext } from "../AccountContext";
 
 const SignUp = () => {
+    const {setUser} = useContext(AccountContext)
+    const [error, setError] = useState(null);
     const {colorMode, toggleColorMode} = useColorMode();
     const navigate = useNavigate();
     return (
@@ -36,11 +40,16 @@ const SignUp = () => {
             })
             .then(res => {
                 if (!res || !res.ok || res.status >= 400) return
-                return res.json() // JSON string -> JS object for next .then() call
+                return res.json(); // JSON string -> JS object for next .then() call
             })
             .then(data => {
                 if (!data) return;
-                console.log(data)
+                setUser({...data})
+                if (data.status) {
+                    setError(data.status)
+                } else if (data.loggedIn) {
+                    navigate("/home")
+                }
             })                    
         }}
     >
@@ -53,7 +62,9 @@ const SignUp = () => {
             spacing="1rem"
         >
             <Heading>Sign Up</Heading>
-            
+            <Text as="p" color="red.500">
+                {error}
+            </Text>
             <TextField 
                 name="username" 
                 placeholder="Enter username" 

@@ -4,37 +4,47 @@ import validateForm from '../controllers/validateForm.js';
 import pool from "../db.js";
 import bcrypt from "bcrypt";
 
-router.post("/login", async (req, res) => {
-    validateForm(req, res);
+router
+    .route("/login")
+    .get(async (req, res) => {
+        if (req.session.user && req.session.user.username) {
+            res.json({ loggedIn: true, username: req.session.user.username});
+        } else {
+            res.json({ loggedIn: false })
+        }
+    })
+    .post(async (req, res) => {
+        validateForm(req, res);
 
-    const potentialLogin = await pool.query(
-        "SELECT id, username, passhash FROM users u WHERE u.username=$1",
-        [req.body.username]
-    );
-
-    if (potentialLogin.rowCount > 0) {
-        // user found
-        const isSamePass = await bcrypt.compare(
-            req.body.password, potentialLogin.rows[0].passhash
+        const potentialLogin = await pool.query(
+            "SELECT id, username, passhash FROM users u WHERE u.username=$1",
+            [req.body.username]
         );
-        if (isSamePass) {
-            // login
-            console.log("login is good")
-            req.session.user = {
-                username: req.body.username,
-                id: potentialLogin.rows[0].id
+
+        if (potentialLogin.rowCount > 0) {
+            // user found
+            const isSamePass = await bcrypt.compare(
+                req.body.password, potentialLogin.rows[0].passhash
+            );
+            if (isSamePass) {
+                // login
+                console.log("login is good")
+                req.session.user = {
+                    username: req.body.username,
+                    id: potentialLogin.rows[0].id
+                };
+                res.json({ loggedIn: true, username: req.body.username })
+            } else {
+                // wrong password
+                console.log("login not good")
+                res.json({loggedIn: false, status: "Wrong username or password"}) 
             }
         } else {
-            // wrong password
+            // user not found
             console.log("login not good")
-            res.json({loggedIn: false, status: "Wrong username or password"}) 
+            res.json({loggedIn: false, status: "Wrong username or password"})
         }
-    } else {
-        // user not found
-        console.log("login not good")
-        res.json({loggedIn: false, status: "Wrong username or password"})
-    }
-});
+    });
 
 router.post("/signup", async (req, res) => {
     validateForm(req, res);
