@@ -7,6 +7,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import session from 'express-session';
+import Redis from "ioredis";
+import RedisStore from "connect-redis";
 
 import authRouter from './routers/authRouter.js';
 
@@ -20,20 +22,21 @@ const io = new Server(server, {
         credentials: "true",
     }
 });
+const redisClient = new Redis();
+
 
 app.use(helmet()); // Sets HTTP headers for security
-
 app.use(cors({
     origin: "http://localhost:5173", // Only allows requests from localhost:5173
     credentials: true // Allows requests with credentials (cookies)
 }));  
-
 app.use(express.json());
 app.use(
     session({
         secret: process.env.COOKIE_SECRET,
         credentials: true,
-        name: "sid", 
+        name: "sid",
+        store: new RedisStore({client: redisClient}), 
         resave: false, // Don't resave unchanged sessions to storage
         saveUninitialized: false, // Prevents new sessions from being saved if empty
         cookie: {
@@ -44,7 +47,6 @@ app.use(
         }
     })
 );
-
 app.use("/auth", authRouter); // For /auth/login and /auth/register
 
 io.on("connect", (socket)=> {});
