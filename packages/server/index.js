@@ -9,7 +9,7 @@ import { Server } from 'socket.io';
 import session from 'express-session';
 import Redis from "ioredis";
 import RedisStore from "connect-redis";
-
+import redisClient from "./redis.js";
 import authRouter from './routers/authRouter.js';
 
 const app = express();
@@ -22,7 +22,6 @@ const io = new Server(server, {
         credentials: "true",
     }
 });
-const redisClient = new Redis();
 
 
 app.use(helmet()); // Sets HTTP headers for security
