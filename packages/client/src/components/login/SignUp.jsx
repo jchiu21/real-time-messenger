@@ -88,7 +88,7 @@ const SignUp = () => {
                     Create Account
                 </Button>
                 <Button 
-                    _hover = {colorMode === "dark" ? "gray.800" : "white"}
+                    _hover={colorMode === "dark" ? "gray.800" : "white"}
                     bg={colorMode === "dark" ? "gray.700" : "gray.200"}
                     onClick={()=>navigate("/")}
                     leftIcon={<ArrowBackIcon />}
