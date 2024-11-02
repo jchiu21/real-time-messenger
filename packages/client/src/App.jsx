@@ -4,12 +4,12 @@ import Views from "./components/Views";
 import React from "react";
 
 function App() {
-    return <>
-        <UserContext>
-            <Views />
-            <ToggleColorMode />
-        </UserContext>
-    </>;
+  return <>
+    <UserContext>
+      <Views />
+      <ToggleColorMode />
+    </UserContext>
+  </>;
 }
 
 export default App;

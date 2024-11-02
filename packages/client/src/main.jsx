@@ -8,13 +8,13 @@ import theme from './theme.js'
 
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <BrowserRouter>
-            <ChakraProvider theme={theme}>
-                <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-                <App />
-            </ChakraProvider>
-        </BrowserRouter>    
-    </StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
+        <App />
+      </ChakraProvider>
+    </BrowserRouter>  
+  </StrictMode>
 
 )

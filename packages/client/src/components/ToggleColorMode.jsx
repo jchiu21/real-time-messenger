@@ -4,21 +4,21 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import React from "react";
 
 const ToggleColorMode = () => {
-    const {colorMode, toggleColorMode} = useColorMode();
-    return (
-        <Button 
-            onClick={() => toggleColorMode()} 
-            pos="absolute" 
-            top="0" 
-            right="0" 
-            m="1rem"
-            bg={colorMode === "dark" ? "gray.800" : "white"}
-            _hover = {colorMode === "dark" ? "gray.800" : "white"}
-            _focus={{boxShadow: "none"}}
-        >
-            {colorMode === "dark" ? <SunIcon/> : <MoonIcon/>}
-        </Button>
-    )
+  const {colorMode, toggleColorMode} = useColorMode();
+  return (
+    <Button 
+      onClick={() => toggleColorMode()} 
+      pos="absolute" 
+      top="0" 
+      right="0" 
+      m="1rem"
+      bg={colorMode === "dark" ? "gray.800" : "white"}
+      _hover = {colorMode === "dark" ? "gray.800" : "white"}
+      _focus={{boxShadow: "none"}}
+    >
+      {colorMode === "dark" ? <SunIcon/> : <MoonIcon/>}
+    </Button>
+  )
 }
 
 export default ToggleColorMode;
