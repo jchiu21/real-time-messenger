@@ -25,7 +25,7 @@ const Login = () => {
         onSubmit={(values, actions) => {
             const vals = {...values}
             actions.resetForm()
-            // Make HTTP POST request to localhost:4000
+            // Make HTTP POST request to backend endpoint
             fetch("http://localhost:4000/auth/login", {
                 method: "POST",
                 credentials: "include", // Cookes and HTTP auth headers sent with req

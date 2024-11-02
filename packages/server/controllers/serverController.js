@@ -1,5 +1,5 @@
 import RedisStore from "connect-redis";
-import redisClient from "../redis";
+import redisClient from "../redis.js";
 import session from "express-session";
 
 const sessionMiddleware = session({

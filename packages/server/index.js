@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import authRouter from './routers/authRouter.js';
-import sessionMiddleware, { corsConfig } from "./controllers/serverController.js";
+import { corsConfig, sessionMiddleware, wrap } from "./controllers/serverController.js";
 
 const app = express();
 const server = createServer(app); // Create standalone http server that uses express app
@@ -25,6 +25,7 @@ app.use("/auth", authRouter); // For /auth/login and /auth/register
 
 io.use(wrap(sessionMiddleware))
 io.on("connect", socket => {
+    console.log(socket.id)
     console.log(socket.request.session.user.username)
 });
 
