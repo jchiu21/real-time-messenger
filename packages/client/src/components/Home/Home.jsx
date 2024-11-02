@@ -9,16 +9,16 @@ const Home = () => {
   const [friendList, setFriendList] = useState([
     {username: "John Doe", connected: false},
     {username: "Steven", connected: true},
-    {username: "Steven", connected: true}
+    {username: "Daniel", connected: true}
   ]);
   return ( 
     <FriendContext.Provider value={{ friendList, setFriendList }}>
       <Grid templateColumns="repeat(10, 1fr)" h="100vh" as={Tabs}>
-        <GridItem colSpan="3" borderRight="1px solid gray">
+        <GridItem colSpan="2" borderRight="1px solid gray">
           <Sidebar />
         </GridItem>
         
-        <GridItem colSpan="7">
+        <GridItem colSpan="8">
           <Chat />
         </GridItem>
       </Grid>

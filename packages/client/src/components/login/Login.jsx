@@ -8,7 +8,7 @@ import {
 import { Form, Formik } from "formik";
 import { formSchema } from "@chatapp/common";
 import { useColorMode } from "@chakra-ui/react";
-import TextField from "./TextField";
+import TextField from "../TextField";
 import { useNavigate } from "react-router";
 import React, { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
