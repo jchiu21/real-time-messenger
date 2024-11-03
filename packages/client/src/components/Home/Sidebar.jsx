@@ -6,8 +6,8 @@ import { FriendContext } from './Home'
 import AddFriendModal from './AddFriendModal'
 
 const Sidebar = () => {
-  const {colorMode, toggleColorMode} = useColorMode();
-  const { friendList, setFriendList } = useContext(FriendContext);
+  const { colorMode } = useColorMode();
+  const { friendList } = useContext(FriendContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -29,12 +29,12 @@ const Sidebar = () => {
         
         <VStack as={TabList} borderBottom="0px">
             {friendList.map(friend => (
-            <HStack as={Tab} _focus={{boxShadow: "none"}}>
+            <HStack as={Tab} key={`friend:${friend}`}_focus={{boxShadow: "none"}}>
               <Circle 
                 bg={friend.connected ? "green.700" : "red.500"} 
                 w="15px" h="15px" 
               />
-              <Text fontSize="larger">{friend.username}</Text> 
+              <Text fontSize="larger">{friend}</Text> 
             </HStack>
           ))}
         </VStack>
