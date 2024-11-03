@@ -28,8 +28,9 @@ app.use("/auth", authRouter); // For /auth/login and /auth/register
 io.use(wrap(sessionMiddleware)) // Share session middleware with express
 io.use(authorizeUser) //
 io.on("connect", socket => {
-    console.log(socket.id)
-    console.log(socket.request.session.user.username)
+    console.log("USERID: ", socket.user.userid);
+    console.log("Socket ID: ", socket.id);
+    console.log("Username: ", socket.request.session.user.username);
 });
 
 server.listen(4000, () => {
