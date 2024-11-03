@@ -35,9 +35,9 @@ const AddFriendModal = ({ isOpen, onClose }) => {
             socket.emit( // .emit() sends an event to IO server through WebSocket
               "add_friend", // Name of the event
               values.friendName, // Data that is sent along with event
-              ({errorMsg, done}) => { // Pass callback to the server side
+              ({errorMsg, done, newFriend}) => { // Pass callback to the server side
                 if (done) {
-                  setFriendList(c => [values.friendName, ...c]) // Add friend to list
+                  setFriendList(c => [newFriend, ...c]) // Add friend to list
                   closeModal(); // Close the modal, clear error messages
                   return;
                 }

@@ -8,7 +8,7 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import authRouter from './routers/authRouter.js';
 import { corsConfig, sessionMiddleware, wrap } from "./controllers/serverController.js";
-import { authorizeUser, addFriend, initializeUser } from "./controllers/socketController.js";
+import { authorizeUser, addFriend, initializeUser, onDisconnect } from "./controllers/socketController.js";
 
 const app = express();
 const server = createServer(app); // Create standalone http server that uses express app
@@ -29,10 +29,10 @@ io.use(authorizeUser);
 io.on("connect", socket => {
     initializeUser(socket);
     // Define event listener for add_friend event
-    // Use inner callback to pass socket instance to function
-    socket.on("add_friend", (friendName, cb) => {
+    socket.on("add_friend", (friendName, cb) => { // Use inner callback to pass socket instance
         addFriend(socket, friendName, cb)
     }); 
+    socket.on("disconnecting", () => onDisconnect(socket))
 });
 
 server.listen(4000, () => {

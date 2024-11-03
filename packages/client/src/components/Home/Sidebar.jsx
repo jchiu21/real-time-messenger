@@ -34,7 +34,7 @@ const Sidebar = () => {
                 bg={friend.connected ? "green.700" : "red.500"} 
                 w="15px" h="15px" 
               />
-              <Text fontSize="larger">{friend}</Text> 
+              <Text fontSize="larger">{friend.username}</Text> 
             </HStack>
           ))}
         </VStack>
