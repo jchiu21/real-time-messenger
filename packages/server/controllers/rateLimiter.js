@@ -8,7 +8,6 @@ const rateLimiter = (secondsLimit, limitAmount) => {
             .incr(ip)
             .expire(ip, secondsLimit)
             .exec();
-        console.log(response[1]);
         if (response[1] > limitAmount) 
             res.json({loggedIn: false, status: "Slow down!! Try again in a minute."});
         else next();

@@ -21,7 +21,7 @@ const attemptLogin = async (req, res) => {
             req.body.password, potentialLogin.rows[0].passhash
         );
         if (isSamePass) {
-            // login
+            // login and set the session
             console.log("login is good")
             req.session.user = {
                 username: req.body.username,

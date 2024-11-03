@@ -8,6 +8,7 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import authRouter from './routers/authRouter.js';
 import { corsConfig, sessionMiddleware, wrap } from "./controllers/serverController.js";
+import authorizeUser from "./controllers/socketController.js";
 
 const app = express();
 const server = createServer(app); // Create standalone http server that uses express app
@@ -20,10 +21,12 @@ const io = new Server(server, {
 app.use(helmet()); // Sets HTTP headers for security
 app.use(cors(corsConfig));  
 app.use(express.json()); // Parse JSON in request body into a JS object
-app.use(sessionMiddleware); // Express session middleware
+app.use(sessionMiddleware); // Use session middleware for http requests
 app.use("/auth", authRouter); // For /auth/login and /auth/register
 
-io.use(wrap(sessionMiddleware))
+// SocketIO middleware runs (in order) when connection comes through
+io.use(wrap(sessionMiddleware)) // Share session middleware with express
+io.use(authorizeUser) //
 io.on("connect", socket => {
     console.log(socket.id)
     console.log(socket.request.session.user.username)
