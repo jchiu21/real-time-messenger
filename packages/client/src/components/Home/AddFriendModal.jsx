@@ -12,7 +12,7 @@ import { FriendContext } from './Home.jsx';
 
 const AddFriendModal = ({ isOpen, onClose }) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [ error, setError ] = useState("");
+  const [error, setError] = useState("");
   // Use useCallback so a new instance of setError and onClose is not created every re-render 
   const closeModal = useCallback(
     () => {
@@ -21,21 +21,21 @@ const AddFriendModal = ({ isOpen, onClose }) => {
     },
     [onClose],
   )
-  const {setFriendList} = useContext(FriendContext);
+  const { setFriendList } = useContext(FriendContext);
   return (
     <Modal isOpen={isOpen} onClose={closeModal} isCentered>
       <ModalOverlay />
       <ModalContent bg={colorMode === "dark" ? "gray.800" : "white"}
       >
         <ModalHeader>Add a friend!</ModalHeader>
-        <ModalCloseButton/>
+        <ModalCloseButton />
         <Formik
-          initialValues={{ friendName: ""}} // Initialize add friend form with friendName field
+          initialValues={{ friendName: "" }} // Initialize add friend form with friendName field
           onSubmit={values => { // Pass form values into onSubmit callback
             socket.emit( // .emit() sends an event to IO server through WebSocket
               "add_friend", // Name of the event
               values.friendName, // Data that is sent along with event
-              ({errorMsg, done, newFriend}) => { // Pass callback to the server side
+              ({ errorMsg, done, newFriend }) => { // Pass callback to the server side
                 if (done) {
                   setFriendList(c => [newFriend, ...c]) // Add friend to list
                   closeModal(); // Close the modal, clear error messages
@@ -46,20 +46,20 @@ const AddFriendModal = ({ isOpen, onClose }) => {
             );
           }}
           validationSchema={friendSchema}
-          >
+        >
           <Form>
             <ModalBody>
-              <Heading 
-                color="red.500" 
+              <Heading
+                color="red.500"
                 textAlign="center"
                 fontSize="l"
               >
                 {error}
               </Heading>
-              <TextField 
+              <TextField
                 label="Friend's name"
                 placeholder="Enter friend's username.."
-                autocomplete="off"
+                autoComplete="off"
                 name="friendName"
               />
             </ModalBody>
